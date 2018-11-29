@@ -32,6 +32,18 @@ conv.write('shp Point', 'from_shp_points/POINTZM_to_POINT.shp', ('0', '0'))
 conv.write('shp PointZ', 'from_shp_points/POINTZM_to_POINTZM.shp', ('Z', 'M'))
 conv.write('shp PointM', 'from_shp_points/POINTZM_to_POINTM.csv', ('0', '0'))
 
+# Convert from POINTZM shapefile
+conv = conversion.ShpMultiPointConverter('../data/shp/Point/MULTIPOINTZM_from_las.shp')
+conv.read()
+conv.write('xyz', 'from_shp_multipoints/MULTIPOINTZM_to_xyz.xyz', ('Z', '0'))
+conv.write('csv', 'from_shp_multipoints/MULTIPOINTZM_to_csv.csv', ('Z', 'M'))
+conv.write('shp Point', 'from_shp_multipoints/MULTIPOINTZM_to_POINT.shp', ('Z', 'M'))
+conv.write('shp PointZ', 'from_shp_multipoints/MULTIPOINTZM_to_POINTZM.shp', ('Z', 'M'))
+conv.write('shp PointM', 'from_shp_multipoints/MULTIPOINTZM_to_POINTM.csv', ('0', '0'))
+conv.write('shp MultiPoint', 'from_shp_multipoints/MULTIPOINTZM_to_MULTIPOINT.shp', ('Z', 'M'))
+conv.write('shp MultiPointZ', 'from_shp_multipoints/MULTIPOINTZM_to_MULTIPOINTZM.shp', ('Z', 'M'))
+conv.write('shp MultiPointM', 'from_shp_multipoints/MULTIPOINTZM_to_MULTIPOINTM.csv', ('0', '0'))
+
 # Convert from XYZ file
 conv = conversion.XYZConverter('from_shp_points/POINTZM_to_xyz.xyz')
 conv.read()
