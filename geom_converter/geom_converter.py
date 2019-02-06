@@ -17,11 +17,11 @@ Shapefile.write_shp_lines('from_scratch/polygon.shp', shapefile.POLYGON, lines, 
 Shapefile.write_shp_lines('from_scratch/polygonz.shp', shapefile.POLYGONZ, lines, 'PolyID')
 Shapefile.write_shp_lines('from_scratch/polygonm.shp', shapefile.POLYGONM,  lines, 'PolyID')
 
+# Open files just written
 for file_path in ['polyline.shp', 'polylinez.shp', 'polylinem.shp']:
     print(list(Shapefile.get_open_polylines(os.path.join('from_scratch', file_path))))
 for file_path in ['polygon.shp', 'polygonz.shp', 'polygonm.shp']:
     print(list(Shapefile.get_polygons(os.path.join('from_scratch', file_path))))
-
 
 # Convert from POINTZM shapefile
 conv = conversion.ShpPointConverter('../data/shp/Point/POINTZM_dalle_lidar_simple.shp')
@@ -51,4 +51,41 @@ conv.write('xyz', 'from_xyz/XYZ_to_xyz.xyz', ('Z', '0'))
 conv.write('csv', 'from_xyz/XYZ_to_csv.csv', ('Z', 'M'))
 conv.write('shp PointZ', 'from_xyz/XYZ_to_POINTZM.shp', ('Z', 'M'))
 
-print('END')
+# Convert from i2s file
+conv = conversion.BKLineConverter('../data/pildepon/sections.i2s')
+conv.read()
+conv.write('csv', 'from_i2s/i2s_to_csv.csv', ('', False))
+conv.write('i2s', 'from_i2s/i2s_to_i2s.i2s', ('', False))
+conv.write('i3s', 'from_i2s/i2s_to_i3s.i3s', ('', False))
+conv.write('shp Polyline', 'from_i2s/i2s_to_POLYLINE.shp', ('ColName', False))
+conv.write('shp PolylineZ', 'from_i2s/i2s_to_POLYLINEZ.shp', ('ColName', False))  # value is not taken
+
+conv = conversion.BKLineConverter('../data/bk/polygons.i2s')
+conv.read()
+conv.write('csv', 'from_i2s/i2s_POLYGON_to_csv.csv', ('', False))
+conv.write('i2s', 'from_i2s/i2s_POLYGON_to_i2s.i2s', ('', False))
+conv.write('shp Polygon', 'from_i2s/i2s_POLYGON_to_POLYGON.shp', ('ColName', False))
+
+# Convert from i3s file
+conv = conversion.BKLineConverter('../data/bk/EMG_Bathy_point_asLines.i3s')
+conv.read()
+conv.write('csv', 'from_i3s/i3s_to_csv.csv', ('', False))
+conv.write('i2s', 'from_i3s/i3s_to_i2s.i2s', ('', False))
+conv.write('i3s', 'from_i3s/i3s_to_i3s.i3s', ('', False))
+conv.write('shp Polyline', 'from_i3s/i3s_to_POLYLINE.shp', ('value', False))
+conv.write('shp PolylineZ', 'from_i3s/i3s_to_POLYLINEZ.shp', ('value', False))
+
+conv = conversion.BKLineConverter('../data/bk/polygons_withZ.i3s')
+conv.read()
+conv.write('csv', 'from_i3s/i3s_POLYGON_to_POLYGON.csv', ('', False))
+conv.write('i3s', 'from_i3s/i3s_POLYGON_to_POLYGON.i3s', ('', False))
+conv.write('shp Polygon', 'from_i3s/i3s_POLYGON_to_POLYGON.shp', ('value', False))
+
+# Convert from POLYLINEZM shapefile
+conv = conversion.ShpLineConverter('from_i2s/i2s_to_POLYLINEZ.shp')
+conv.read()
+conv.write('shp Polyline', 'from_shp_polyline/POLYLINEZ_to_POLYLINE.shp', ('Z', 'Z', False))
+conv.write('shp PolylineZ', 'from_shp_polyline/POLYLINEZ_to_POLYLINEZ.shp', ('Z', 'Z', False))
+conv.write('shp PolylineM', 'from_shp_polyline/POLYLINEZ_to_POLYLINEZM.shp', ('M', 'Z', False))
+conv.write('i2s', 'from_shp_polyline/POLYLINEZ_to_i2s.i2s', ('Iteration', False))
+conv.write('i3s', 'from_shp_polyline/POLYLINEZ_to_i3s.i3s', ('0', 'Iteration', False))

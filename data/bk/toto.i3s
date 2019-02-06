@@ -1,0 +1,22 @@
+############################################################################
+:FileType i3s  ASCII  EnSim 1.0
+# File structure National Research Council Canada © 1998-2017
+############################################################################
+# DataType    3D Line Set
+#
+:Application  BlueKenue
+:Version      3.9.3
+:WrittenBy    duron  # potential owner of the data
+:CreationTime 2019/02/06 16:19:04.000
+#---------------------------------------------------------------------------
+:Name  new ClosedLine
+#
+:AttributeCount 1
+:AttributeUnits 1 m
+:EndHeader
+5 0
+-44.045746 73.926157 0.000000
+-37.533349 77.565438 0.000000
+-29.967475 74.979633 0.000000
+-32.553280 69.520712 0.000000
+-44.045746 73.926157 0.000000
